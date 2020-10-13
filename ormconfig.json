@@ -1,0 +1,19 @@
+{
+   "type": "mysql",
+   "host": "localhost",
+   "port": 3306,
+   "username": "root",
+   "password": "yuriMELO123",
+   "database": "tsdb",
+   "entities": [
+      "src/models/*.ts"
+   ],
+   "logging": true,
+   "synchronize": true,
+   "migrations": [
+      "src/database/migration/*.ts"
+   ],
+   "cli": {
+   	  "migrationsDir": "src/database/migrations"
+   }
+}
