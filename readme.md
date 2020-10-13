@@ -23,10 +23,3 @@ Dentro do arquivo tsconfig.json, adicione este comando com valor sendo o diretó
 
 Agora vamos configurar um fluxo de desenvolvimento que ficará mais perfomático para nós - devs;
 Refere-se a este comando: "dev:server": "ts-node-dev --respawn --transpile-only src/index.ts";
-
-# Migrações
-
-Sua primeira migração: `npm run typeorm migration:create -- -n CreateUsersTable`
-
-Configure do seu jeito o up e down.
-Por fim, vamos executar uma migração: `npm run typeorm migration:run`;
