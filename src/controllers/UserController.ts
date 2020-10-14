@@ -4,10 +4,6 @@ import User from '../models/User';
 
 class UserController {
 
-	index(req: Request, res: Response) {
-		res.send({ userId: req.userId });
-	}
-
 	async create(req: Request, res: Response) {
 		const repository = getRepository(User);
 		const { email, password } = req.body;
@@ -15,7 +11,7 @@ class UserController {
 		const userExists = await repository.findOne({ where: { email } });
 		
 		if(userExists) {
-			return res.sendStatus(409); //Conflit - There is already an user
+			return res.sendStatus(409); //Conflit
 		}
 
 		const user = repository.create({ email, password });
@@ -30,14 +26,42 @@ class UserController {
 		const userExists = await repository.findOne({ where: { id } });
 		
 		if(!userExists) {
-			return res.sendStatus(409);
+			return res.sendStatus(404);
 		}
 
 		await repository.update({ id: userExists.id }, { email: email });
-		console.log(res);
 		return res.sendStatus(200);
+	}
+
+	async destroy(req: Request, res: Response) {
+		const repository = getRepository(User);
+		const { id } = req.body;
+
+		const userExists = await repository.findOne({ where: { id } });
+
+		if(!userExists) {
+			return res.sendStatus(404);
+		}
+
+		await repository.delete([id]);
+		return res.sendStatus(200);
+	}
+
+	async list(req: Request, res: Response) {
+		const repository = getRepository(User);
+		let users = await repository.find();
+		
+		if(!users) {
+			return res.sendStatus(404);
+		}
+
+		users = users.map(element => {
+			delete element.password;
+			return element;
+		})
+
+		return res.json(users);
 	}
 }
 
-// Singleton Pattern applied
 export default new UserController();

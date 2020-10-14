@@ -1,36 +1,66 @@
 import { Request, Response, NextFunction } from 'express';
+import { getRepository } from 'typeorm';
+import Admin from '../models/Admin';
 
-import DatabaseService from '../services/DatabaseService';
-
-let administrators = [
-	{
-		name: 'Palloma Melo',
-		email: 'palloma@v8.com',
-		description: 'Palloma has the function of lead a five people team in Development Environment.'
-	},
-	{
-		name: 'Bia Fragoso',
-		email: 'bia@v8.com',
-		description: 'Bia has the function of lead a 4 people team in Development and Operations Environment.'
-	},
-	{
-		name: 'Pricilla Cavalcante',
-		email: 'pricilla@v8.com',
-		description: 'Pricilla has the function of lead a 5 people team in Software Engineering.'
-	}
-];
-
-export default {
-	async index(req: Request, res: Response) {
-		res.json(administrators);
-	},
+class AdminController {
 
 	async create(req: Request, res: Response) {
-		const client = new DatabaseService();
-		client.saveOneInstance({
-			identifier: 1000,
-			username: 'João Vitor'
+		const repository = getRepository(Admin);
+		console.log(req.body);
+		const { name, description, email, password, currentDate } = req.body;
+		const adminExists = await repository.findOne({ where: { email } });
+
+		if(adminExists) {
+			return res.sendStatus(409);
+		}
+
+		const admin = repository.create({
+			name, description, email, password, currentDate
 		});
-		res.send('We just save your client');
+		await repository.save(admin);
+		return res.sendStatus(200);
+	}
+
+	async update(req: Request, res: Response) {
+		const repository = getRepository(Admin);
+		const { idAdmin, name, description, email, password } = req.body;
+		const adminExists = repository.findOne({ where: { idAdmin } });
+
+		if(!adminExists) {
+			return res.sendStatus(200);
+		}
+
+		await repository.update({ idAdmin: idAdmin }, {
+			name, description, email, password
+		});
+
+		return res.sendStatus(200);
+
+	}
+
+	async destroy(req: Request, res: Response) {
+		const repository = getRepository(Admin);
+		const { idAdmin } = req.body;
+		const adminExists = await repository.findOne({ where: { idAdmin } });
+
+		if(!adminExists) {
+			return res.sendStatus(404);
+		}
+
+		await repository.delete([idAdmin]);
+		return res.sendStatus(200);
+	}
+
+	async list(req: Request, res: Response) {
+		const repository = getRepository(Admin);
+		const admins = await repository.find();
+
+		if(!admins){
+			return res.sendStatus(404);
+		}
+
+		return res.json(admins);
 	}
 }
+
+export default new AdminController;

@@ -29,7 +29,6 @@ class AuthMiddleware {
 		} catch {
 			return res.sendStatus(401);
 		}
-
 	}
 }
 

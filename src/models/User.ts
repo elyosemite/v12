@@ -16,7 +16,7 @@ class User {
 
 	@BeforeInsert()
 	@BeforeUpdate()
-	hashPassword() {
+	async hashGenerator() {
 		this.password = bcrypt.hashSync(this.password, 8);
 	}
 }

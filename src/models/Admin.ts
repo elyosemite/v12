@@ -1,6 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, BeforeInsert, BeforeUpdate } from 'typeorm';
 
-@Entity()
+import bcrypt from 'bcryptjs';
+
+@Entity('admins')
 class Admin {
 
 	@PrimaryGeneratedColumn('uuid')
@@ -14,15 +16,34 @@ class Admin {
 
 	@Column({
 		type: "varchar",
-		length: 100
+		length: 100,
+		nullable: true
 	})
 	description: string
 
+	@Column({
+		type: "varchar",
+		length: 30
+	})
+	email: string;
 
 	@Column({
-		type: "date"
+		type: "varchar",
+		length: 255
 	})
-	date: string
+	password: string
+
+	@Column({
+		type: "date",
+		nullable: false
+	})
+	currentDate: string
+
+	@BeforeInsert()
+	@BeforeUpdate()
+	async hashGenerator() {
+		this.password = bcrypt.hashSync(this.password, 8);
+	}
 }
 
 export default Admin;
