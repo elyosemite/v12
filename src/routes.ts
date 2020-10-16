@@ -8,17 +8,16 @@ import AuthController from './controllers/AuthController';
 
 const routes = Router();
 
-// You just manipulate those routes with JWT Authenticate
-routes.post('/user/auth', AuthController.authenticateUser);
-routes.post('/users', UserController.create);
-routes.patch('/users', AuthMiddleware.auth, UserController.update);
-routes.delete('/users/:id?', AuthMiddleware.auth, UserController.destroy);
-routes.get('/users', AuthMiddleware.auth, UserController.list);
+routes.post('/admin/auth', AuthController.authenticate);
 
-routes.post('/admin/auth', AuthController.authenticateAdmin);
-routes.post('/admin', AdminController.create);
-routes.patch('/admin', AdminController.update);
-routes.delete('/admin', AdminController.destroy);
-routes.get('/admins', AdminController.list);
+routes.post('/user',        AuthMiddleware.auth, UserController.create);
+routes.patch('/user',       AuthMiddleware.auth, UserController.update);
+routes.delete('/user/:id?', AuthMiddleware.auth, UserController.destroy);
+routes.get('/users',        AuthMiddleware.auth, UserController.list);
+
+routes.post('/admin',       AuthMiddleware.auth, AdminController.create);
+routes.patch('/admin',      AuthMiddleware.auth, AdminController.update);
+routes.delete('/admin',     AuthMiddleware.auth, AdminController.destroy);
+routes.get('/admins',       AuthMiddleware.auth, AdminController.list);
 
 export default routes;

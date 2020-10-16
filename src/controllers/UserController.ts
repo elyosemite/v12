@@ -35,7 +35,7 @@ class UserController {
 
 	async destroy(req: Request, res: Response) {
 		const repository = getRepository(User);
-		const { id } = req.body;
+		const id = req.params.id || req.body.id;
 
 		const userExists = await repository.findOne({ where: { id } });
 

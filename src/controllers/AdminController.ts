@@ -6,7 +6,6 @@ class AdminController {
 
 	async create(req: Request, res: Response) {
 		const repository = getRepository(Admin);
-		console.log(req.body);
 		const { name, description, email, password, currentDate } = req.body;
 		const adminExists = await repository.findOne({ where: { email } });
 
@@ -53,11 +52,16 @@ class AdminController {
 
 	async list(req: Request, res: Response) {
 		const repository = getRepository(Admin);
-		const admins = await repository.find();
+		let admins = await repository.find();
 
 		if(!admins){
 			return res.sendStatus(404);
 		}
+
+		admins = admins.map(admin => {
+			delete admin.password;
+			return admin;
+		});
 
 		return res.json(admins);
 	}

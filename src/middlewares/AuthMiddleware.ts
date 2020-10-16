@@ -10,20 +10,21 @@ interface TokenPayload {
 class AuthMiddleware {
 	static auth(req: Request, res: Response, next: NextFunction) {
 		const { authorization } = req.headers;
-		const secretKeyENV = 'secret'; // This key must come from your ENV variable.
+
+		const secretKeyENV = 'admins_secret_key'; // This key must come from your ENV variable.
 
 		if(!authorization) {
 			return res.sendStatus(401);
 		}
 
 		const token = authorization.replace('Bearer', '').trim();
-
+		
 		try {
 			const data = jwt.verify(token, secretKeyENV);
-			
 			const { id } = data as TokenPayload;
 
-			req.userId = id;
+			req.idAdmin = id;
+			console.log(req);
 
 			return next();
 		} catch {

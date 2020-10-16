@@ -1,10 +1,10 @@
 {
    "type": "mysql",
-   "host": "localhost",
+   "host": "www.plussoft.com.br",
    "port": 3306,
-   "username": "root",
-   "password": "yuriMELO123",
-   "database": "tsdb",
+   "username": "cenmatic_userpm",
+   "password": "plus1411",
+   "database": "cenmatic_todoYuri",
    "entities": [
       "src/models/*.ts"
    ],
