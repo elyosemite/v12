@@ -2,5 +2,8 @@
 
 ## Installation
 
-You will need run `npm install`.
+You will need run for installing the dependecies.
+```bash
+npm install
+```
 
