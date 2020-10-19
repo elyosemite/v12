@@ -24,7 +24,6 @@ class AuthMiddleware {
 			const { id } = data as TokenPayload;
 
 			req.idAdmin = id;
-			console.log(req);
 
 			return next();
 		} catch {

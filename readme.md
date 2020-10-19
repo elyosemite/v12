@@ -7,3 +7,14 @@ You will need run for installing the dependecies.
 npm install
 ```
 
+## Runnning
+
+We just can run `npm run dev`
+
+## Documentation
+
+### Resources
+`users` and `admins`
+
+> For manipulate those data, you must to be authenticated with token JWT - Json Web Token. For this, I recommend you request (POST) on this URL: `http://localhost:3000/admin/auth`; `locahost` because you are running in your development environment, that's your machine.
+
