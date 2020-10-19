@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import { getRepository } from 'typeorm';
 import Admin from '../models/Admin';
 
-class AdminController {
+class AdminController implements II{
 
 	async create(req: Request, res: Response) {
 		const repository = getRepository(Admin);
