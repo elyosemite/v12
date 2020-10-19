@@ -13,7 +13,7 @@ routes.post('/admin/auth', AuthController.authenticate);
 routes.post('/user',        AuthMiddleware.auth, UserController.create);
 routes.patch('/user',       AuthMiddleware.auth, UserController.update);
 routes.delete('/user/:id?', AuthMiddleware.auth, UserController.destroy);
-routes.get('/users',        AuthMiddleware.auth, UserController.list);
+routes.get('/users',        UserController.list);
 
 routes.post('/admin',       AuthMiddleware.auth, AdminController.create);
 routes.patch('/admin',      AuthMiddleware.auth, AdminController.update);
