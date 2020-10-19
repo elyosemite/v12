@@ -21,9 +21,9 @@ We just can run `npm run dev`
 > For manipulate those data, you must to be authenticated with token JWT - Json Web Token. For this, I recommend you request (POST) on this URL: `http://localhost:3000/admin/auth`; `locahost` because you are running in your development environment, that's your machine.
 
 ### GET Method
+---
 
 For *users*, you put this in your URL: `http://localhost:3000/users`
----
 
 ```
 [
