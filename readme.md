@@ -23,7 +23,7 @@ We just can run `npm run dev`
 ### GET Method
 ---
 
-For *users*, you put this in your URL: `http://localhost:3000/users`
+For **users**, you put this in your URL: `http://localhost:3000/users`
 
 ```
 [
@@ -73,7 +73,7 @@ For *users*, you put this in your URL: `http://localhost:3000/users`
   }
 ]
 ```
-For *admins*, you put this in your URL: `/admins`
+For **admins**, you put this in your URL: `http://localhost:3000/admins`
 ```
 [
   {
